@@ -2,10 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://rosa.github.io/categories/</loc>
+    <loc>https://rosa.codes/about/</loc>
   </url><url>
-    <loc>https://rosa.github.io/</loc>
+    <loc>https://rosa.codes/categories/</loc>
   </url><url>
-    <loc>https://rosa.github.io/tags/</loc>
+    <loc>https://rosa.codes/</loc>
+  </url><url>
+    <loc>https://rosa.codes/tags/</loc>
   </url>
 </urlset>
