@@ -29,6 +29,16 @@ Programming language topic in GitHub</description>
     </item>
     
     <item>
+      <title>“Invalid byte sequence in UTF-8” 😭</title>
+      <link>https://rosa.codes/strings2024/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://rosa.codes/strings2024/</guid>
+      <description>Resources to learn more about strings, encoding, Unicode&amp;hellip;
+Mastering Ruby - Strings and Encodings - Book by Aaron Lasseigne Guide to string encoding in Ruby - Article by Aaron Patterson Pragmatic Unicode, or How do I stop the pain - Talk by Ned Batchelder at PyCon 2012 (from 2010, still great!) The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!) - Article by Joel Spolsky (from 2003, still great!</description>
+    </item>
+    
+    <item>
       <title>about</title>
       <link>https://rosa.codes/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -50,16 +60,6 @@ Competitive Programming
 Kattis online judge UVa online judge Singapore University course Reykjavik University course Competitive Programming books Advent of Code
 r/adventofcode Alfredo&amp;rsquo;s solutions My solutions Rosetta Code
 Programming language topic in GitHub</description>
-    </item>
-    
-    <item>
-      <title>strings2024</title>
-      <link>https://rosa.codes/strings2024/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://rosa.codes/strings2024/</guid>
-      <description>Resources to learn more about strings, encoding, Unicode&amp;hellip;
-Mastering Ruby - Strings and Encodings - Book by Aaron Lasseigne Guide to string encoding in Ruby - Article by Aaron Patterson Pragmatic Unicode, or How do I stop the pain - Talk by Ned Batchelder at PyCon 2012 (from 2010, still great!) The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!) - Article by Joel Spolsky (from 2003, still great!</description>
     </item>
     
   </channel>
