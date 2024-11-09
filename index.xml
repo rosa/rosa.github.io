@@ -4,63 +4,111 @@
     <title>rosa.codes</title>
     <link>https://rosa.codes/</link>
     <description>Recent content on rosa.codes</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://rosa.codes/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- 0.138.0</generator>
+    <language>en-us</language>
+    <atom:link href="https://rosa.codes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
       <link>https://rosa.codes/bilbo2023/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://rosa.codes/bilbo2023/</guid>
-      <description> Some supporting links for the &amp;ldquo;From SMTP to the Imbox*&amp;rdquo; talk I gave at the BilboStack conference in January 2023.
-April Fools&amp;rsquo; Day Request for Comments RFCs related to email standards HEY Postfix Rails and Action Mailbox </description>
+      <description>&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;https://rosa.codes/images/bilbostack_logo.png#center&#34;
+         alt=&#34;Bilbostack 2023&#34; width=&#34;400&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;Some supporting links for the &amp;ldquo;From SMTP to the Imbox*&amp;rdquo; talk I gave at the &lt;a href=&#34;https://bilbostack.com/&#34;&gt;BilboStack&lt;/a&gt; conference in January 2023.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/April_Fools%27_Day_Request_for_Comments&#34;&gt;April Fools&amp;rsquo; Day Request for Comments&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.fastmail.help/hc/en-us/articles/1500000278382-Email-standards&#34;&gt;RFCs related to email standards&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.hey.com/&#34;&gt;HEY&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.postfix.org/&#34;&gt;Postfix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://guides.rubyonrails.org/action_mailbox_basics.html&#34;&gt;Rails and Action Mailbox&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title></title>
       <link>https://rosa.codes/swr2022/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://rosa.codes/swr2022/</guid>
-      <description>Some supporting links for the &amp;ldquo;50 languages in 50 days*&amp;rdquo; talk I gave at the South West Ruby meetup in December 2022.
-Advent of Code
-r/adventofcode Alfredo&amp;rsquo;s solutions My solutions Rosetta Code
-Programming language topic in GitHub</description>
+      <description>&lt;figure&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;https://rosa.codes/images/swr_logo.png#center&#34;
+         alt=&#34;South West Ruby meetup&#34; width=&#34;400&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;Some supporting links for the &amp;ldquo;50 languages in 50 days*&amp;rdquo; talk I gave at the &lt;a href=&#34;https://www.meetup.com/en-AU/south-west-ruby/&#34;&gt;South West Ruby meetup&lt;/a&gt; in December 2022.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://adventofcode.com/&#34;&gt;Advent of Code&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.reddit.com/r/adventofcode/&#34;&gt;r/adventofcode&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/abeaumont/competitive-programming/tree/master/advent-of-code&#34;&gt;Alfredo&amp;rsquo;s solutions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rosa/advent-of-code&#34;&gt;My solutions&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.rosettacode.org/&#34;&gt;Rosetta Code&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/topics/programming-language&#34;&gt;Programming language topic in GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>“Invalid byte sequence in UTF-8” 😭</title>
       <link>https://rosa.codes/strings2024/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://rosa.codes/strings2024/</guid>
-      <description>Resources to learn more about strings, encoding, Unicode&amp;hellip;
-Mastering Ruby - Strings and Encodings - Book by Aaron Lasseigne Guide to string encoding in Ruby - Article by Aaron Patterson Pragmatic Unicode, or How do I stop the pain - Talk by Ned Batchelder at PyCon 2012 (from 2010, still great!) The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!) - Article by Joel Spolsky (from 2003, still great!</description>
+      <description>&lt;p&gt;Resources to learn more about strings, encoding, Unicode&amp;hellip;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://aaronlasseigne.com/books/mastering-ruby/strings-and-encodings/&#34;&gt;Mastering Ruby - Strings and Encodings&lt;/a&gt; - Book by Aaron Lasseigne&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tenderlovemaking.com/2020/01/13/guide-to-string-encoding-in-ruby/&#34;&gt;Guide to string encoding in Ruby&lt;/a&gt; - Article by Aaron Patterson&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=sgHbC6udIqc&#34;&gt;Pragmatic Unicode, or How do I stop the pain&lt;/a&gt; - Talk by Ned Batchelder at PyCon 2012 (from 2010, still great!)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/&#34;&gt;The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)&lt;/a&gt; - Article by Joel Spolsky (from 2003, still great!)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tonsky.me/blog/unicode/&#34;&gt;The Absolute Minimum Every Software Developer Must Know About Unicode in 2023 (Still No Excuses!)&lt;/a&gt; - Article by Nikita Prokopov&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>about</title>
       <link>https://rosa.codes/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://rosa.codes/about/</guid>
-      <description>👩🏻‍💻&amp;#x1f430;&amp;#x1f573;&amp;#xfe0f; I&amp;rsquo;m a software engineer who loves writing code, investigating tricky bugs down rabbit holes and helping others above all things. I value curiosity and humility very highly.
-&amp;#x1f4da;&amp;#x1f9ee; I have a background in theoretical computer science and I wanted to study pure mathematics. I&amp;rsquo;ll do it someday.
-&amp;#x1f4ac;&amp;#x1f5fa;&amp;#xfe0f; I&amp;rsquo;m a polyglot at heart, trying to be a polyglot on the outside. I like learning programming languages, even in absurd ways, and human languages as well.</description>
+      <description>&lt;p&gt;👩🏻‍💻&amp;#x1f430;&amp;#x1f573;&amp;#xfe0f; I&amp;rsquo;m a software engineer who loves writing code, investigating tricky bugs down rabbit holes and helping others above all things. I value curiosity and humility very highly.&lt;/p&gt;
+&lt;p&gt;&amp;#x1f4da;&amp;#x1f9ee; I have a background in theoretical computer science and I wanted to study pure mathematics. I&amp;rsquo;ll do it someday.&lt;/p&gt;
+&lt;p&gt;&amp;#x1f4ac;&amp;#x1f5fa;&amp;#xfe0f; I&amp;rsquo;m a polyglot at heart, trying to be a polyglot on the outside. I like learning programming languages, &lt;a href=&#34;https://github.com/rosa/advent-of-code/tree/main/2021#advent-of-code-2021&#34;&gt;even in absurd ways&lt;/a&gt;, and human languages as well.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>scpna2022</title>
       <link>https://rosa.codes/scpna2022/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://rosa.codes/scpna2022/</guid>
-      <description>Some supporting links for the &amp;ldquo;50 languages in 50 days*&amp;rdquo; talk I gave at the Pamplona Software Crafters conference in 2022.
-Competitive Programming
-Kattis online judge UVa online judge Singapore University course Reykjavik University course Competitive Programming books Advent of Code
-r/adventofcode Alfredo&amp;rsquo;s solutions My solutions Rosetta Code
-Programming language topic in GitHub</description>
+      <description>&lt;p&gt;Some supporting links for the &amp;ldquo;50 languages in 50 days*&amp;rdquo; talk I gave at the &lt;a href=&#34;http://pamplonaswcraft.com/&#34;&gt;Pamplona Software Crafters conference&lt;/a&gt; in 2022.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Competitive Programming&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://open.kattis.com/&#34;&gt;Kattis online judge&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://onlinejudge.org/&#34;&gt;UVa online judge&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.comp.nus.edu.sg/~stevenha/cs3233.html#intro&#34;&gt;Singapore University course&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://algo.is/competitive-programming-course/&#34;&gt;Reykjavik University course&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cpbook.net/&#34;&gt;Competitive Programming books&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://adventofcode.com/&#34;&gt;Advent of Code&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.reddit.com/r/adventofcode/&#34;&gt;r/adventofcode&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/abeaumont/competitive-programming/tree/master/advent-of-code&#34;&gt;Alfredo&amp;rsquo;s solutions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rosa/advent-of-code&#34;&gt;My solutions&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.rosettacode.org/&#34;&gt;Rosetta Code&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/topics/programming-language&#34;&gt;Programming language topic in GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
-    
   </channel>
 </rss>
