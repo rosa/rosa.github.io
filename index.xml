@@ -4,7 +4,7 @@
     <title>rosa.codes</title>
     <link>https://rosa.codes/</link>
     <description>Recent content on rosa.codes</description>
-    <generator>Hugo -- 0.138.0</generator>
+    <generator>Hugo -- 0.144.2</generator>
     <language>en-us</language>
     <atom:link href="https://rosa.codes/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -73,9 +73,9 @@
       <link>https://rosa.codes/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://rosa.codes/about/</guid>
-      <description>&lt;p&gt;👩🏻‍💻&amp;#x1f430;&amp;#x1f573;&amp;#xfe0f; I&amp;rsquo;m a software engineer who loves writing code, investigating tricky bugs down rabbit holes and helping others above all things. I value curiosity and humility very highly.&lt;/p&gt;
-&lt;p&gt;&amp;#x1f4da;&amp;#x1f9ee; I have a background in theoretical computer science and I wanted to study pure mathematics. I&amp;rsquo;ll do it someday.&lt;/p&gt;
-&lt;p&gt;&amp;#x1f4ac;&amp;#x1f5fa;&amp;#xfe0f; I&amp;rsquo;m a polyglot at heart, trying to be a polyglot on the outside. I like learning programming languages, &lt;a href=&#34;https://github.com/rosa/advent-of-code/tree/main/2021#advent-of-code-2021&#34;&gt;even in absurd ways&lt;/a&gt;, and human languages as well.&lt;/p&gt;</description>
+      <description>&lt;p&gt;👩🏻‍💻&amp;#x1f430;&amp;#x1f573;&amp;#xfe0f; I&amp;rsquo;m a software engineer who loves writing code, investigating tricky bugs down rabbit holes and helping others above all things. I value curiosity, generosity and humility very highly. I think the three are very closely related.&lt;/p&gt;
+&lt;p&gt;&amp;#x1f4da;&amp;#x1f9ee; I have a background in theoretical computer science and I wanted to study pure mathematics. I&amp;rsquo;ll do it one day.&lt;/p&gt;
+&lt;p&gt;&amp;#x1f4ac;&amp;#x1f5fa;&amp;#xfe0f; I&amp;rsquo;m a polyglot at heart, trying to be a polyglot on the outside. I love learning programming languages, &lt;a href=&#34;https://github.com/rosa/advent-of-code/tree/main/2021#advent-of-code-2021&#34;&gt;even in absurd ways&lt;/a&gt;, and human languages as well.&lt;/p&gt;</description>
     </item>
     <item>
       <title>scpna2022</title>
