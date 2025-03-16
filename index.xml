@@ -4,7 +4,7 @@
     <title>rosa.codes</title>
     <link>https://rosa.codes/</link>
     <description>Recent content on rosa.codes</description>
-    <generator>Hugo -- 0.144.2</generator>
+    <generator>Hugo -- 0.145.0</generator>
     <language>en-us</language>
     <atom:link href="https://rosa.codes/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -108,6 +108,24 @@
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/topics/programming-language&#34;&gt;Programming language topic in GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>The curious incident of the incomplete executor 🕵🏻‍♀️</title>
+      <link>https://rosa.codes/executor2025/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://rosa.codes/executor2025/</guid>
+      <description>&lt;p&gt;Some resources to accompany the talk of the same name.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://thoughtbot.com/upcase/videos/rack&#34;&gt;Rack @ The weekly iteration&lt;/a&gt; – Upcase by thoughtbot&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://guides.rubyonrails.org/v7.1/threading_and_code_execution.html#executor&#34;&gt;Rails executor&lt;/a&gt; – Rails Guides&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://evilmartians.com/events/rails-executor-kaigionrails&#34;&gt;Rails Executor: the border between application and framework code&lt;/a&gt; - Talk by Andrey Novikov from Evil Martians at Kaigi on Rails 2023 (Japanese 🇯🇵)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dansvetlov.me/puma-internals/&#34;&gt;Dissecting Puma: Anatomy of a Ruby Web Server&lt;/a&gt; – Amazing deep dive on Puma internals by Dan Svetlov&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/puma/puma/pull/2731&#34;&gt;Change that moved &lt;/a&gt;&lt;!-- raw HTML omitted --&gt;body.close&lt;!-- raw HTML omitted --&gt; in Puma&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/puma/puma/issues/2808&#34;&gt;Authentication with cookies unreliable on 5.6.0 #2808&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://discuss.rubyonrails.org/t/cve-2022-23633-possible-exposure-of-information-vulnerability-in-action-pack/80016&#34;&gt;[CVE-2022-23633] Possible exposure of information vulnerability in Action Pack&lt;/a&gt; – CVE in Rails forums&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/puma/puma/security/advisories/GHSA-rmj8-8hhh-gv5h&#34;&gt;Information Exposure with Puma and Rails&lt;/a&gt; – Security advisory in Puma&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rails/rails/commit/3c0420c431954d05fef2015a27281069e68cce0c&#34;&gt;ActionDispatch::Executor don&amp;rsquo;t fully trust &lt;/a&gt;&lt;!-- raw HTML omitted --&gt;body#close&lt;!-- raw HTML omitted --&gt; – Fix in Rails executor to make it more resilient&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
   </channel>
