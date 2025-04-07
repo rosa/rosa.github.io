@@ -1,0 +1,1220 @@
+---
+title: "The curious incident of the incomplete executor 🕵🏻‍♀️"
+type: "page"
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>The curious incident of the incomplete executor</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reveal.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reset.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reveal.min.css">
+  <link rel="stylesheet" href="theme.css">
+
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/stackoverflow-light.min.css">
+</head>
+<body>
+  <div class="reveal">
+   <div class="slides">
+    <section>
+      <h1 class="center">🇧🇷🍹🤗💜</h1>
+    </section>
+
+    <section>
+      <h4>👋🏻 Hi, I'm Rosa!</h4>
+
+      <hr />
+
+      <p>👩🏻‍💻 github.com/rosa</p>
+      <p>🌐 rosa.codes</p>
+      <p><svg height="30" viewBox="0 0 16 16" width="30" xmlns="http://www.w3.org/2000/svg"><g><path d="m6.41808 12.1861c-.84794.8738-.86508 2.2961 0 3.1591.87184.8718 2.29508.8718 3.16545.0003.87577-.8719.87537-2.2876 0-3.1591-.71848-.72-.71812-1.8845 0-2.60278.84957-.87477.86657-2.30424 0-3.16749-.87077-.87207-2.29374-.87184-3.16545 0-.72287.69857-1.88822.71259-2.60261 0-.71846-.71953-.71846-1.88425-.00027-2.6034.84845-.87433.86577-2.29447.0004-3.158389-.8708-.873707-2.28856-.873707-3.160232-.0003-.873859.872969-.873789 2.285789 0 3.158689.697952.72098.712062 1.89122 0 2.6034-.847885.87421-.865189 2.30337-.000046 3.16749.871828.87078 2.289308.87078 3.159918 0 .72337-.69907 1.88871-.71329 2.60284 0 .7193.71848.71922 1.88278 0 2.60248z"></path><path d="m9.58326 3.82319c.87564-.87519.87564-2.29194-.00009-3.167216-.87349-.875988-2.29236-.875988-3.16501.000324-.87704.874862-.87755 2.292392 0 3.167172.87225.87415 2.29141.87415 3.1651-.00028z"></path><path d="m15.3433 9.5835c.8756-.87518.8756-2.29221-.0001-3.16749-.8735-.87599-2.2924-.87599-3.165.00032-.877.87486-.8776 2.29239 0 3.16717.8722.8742 2.2914.8744 3.1651 0z"></path></g></svg> Principal programmer at 37signals</p>
+    </section>
+
+    <section data-auto-animate data-auto-animate-id="title">
+
+
+      <h2>The curious incident of the incomplete executor 🕵🏻‍♀️</h2>
+      <h4 class="fragment">in the night time*</h4>
+
+      <br />
+      <br />
+
+      <small class="small fragment">* in some time zones</small>
+      <br />
+      <small class="small fragment">** yes, in mine 🌙🥱☕</small>
+    </section>
+
+    <section data-auto-animate>
+      <h4>Through this story:</h4>
+        <p class="fragment">We'll be using <code class="inline">Puma</code> as our web server</p>
+        <p class="fragment">and <code class="inline">nginx</code> on top of it</p>
+        <p class="fragment">The code shown is from <code class="inline">Rails 7.0.x</code> and <code class="inline">Rack 2.2.x</code></p>
+        <p class="fragment">(but the relevant parts are the same)</p>
+    </section>
+
+    <section data-auto-animate>
+
+
+      <h4>It all started with a 404 error in our HEY email app...</h4>
+    </section>
+
+    <section data-auto-animate>
+
+      <h4>A 304 (correct) response looked like this:</h4>
+      <pre><code data-noescape data-trim class="text" data-line-numbers="|11|6,8|7">
+        Started GET "/boxes/210.json" for ...
+        Processing by BoxesController#show as JSON
+          Parameters: {"id"=>"210"}
+            Oauth::Client Load (0.7ms)  SELECT `oauth_clients`.* FROM `oauth_clients` ..
+            Session Load (0.7ms)  SELECT `sessions`.* FROM `sessions`
+              WHERE `sessions`.`token` = '...' AND `sessions`.`identity_id` = 4 LIMIT 1
+          Authenticated Identity#4 from OAuth access token
+            Identity Load (0.6ms)  SELECT `identities`.* FROM `identities` WHERE `identities`.`id` = 4 LIMIT 1
+            Box Load (0.7ms)  SELECT `boxes`.* FROM `boxes` ...
+            Posting Load (0.7ms)  SELECT `postings`.* FROM `postings` ...
+        Completed 304 Not Modified in 13ms
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+
+      <h4>But the 404 response had no authentication and a strange identity_id</h4>
+      <pre><code data-noescape data-trim class="text" data-line-numbers="|10|5,8">
+        Started GET "/boxes/210.json" for ...
+        Processing by BoxesController#show as JSON
+          Parameters: {"id"=>"210"}
+          CACHE Box Load (0.0ms)  SELECT `boxes`.* FROM `boxes`
+            WHERE `boxes`.`identity_id` = 82
+            AND `boxes`.`id` = 210 ORDER BY `boxes`.`id` ASC LIMIT 1
+          CACHE Contact Load (0.0ms)  SELECT `contacts`.* FROM `contacts` INNER JOIN `users` ON `contacts`.`contactable_id` = `users`.`id`
+            WHERE `users`.`identity_id` = 82
+            AND `contacts`.`contactable_type` = 'User' ORDER BY `contacts`.`id` ASC LIMIT 1
+        Completed 404 Not Found in 3ms
+      </code></pre>
+      <small class="fragment">And some other strange features</small>
+    </section>
+
+    <section>      <h1 class="center">😟</h1>
+    </section>
+
+    <section data-auto-animate data-auto-animate-id="wrong-sender">
+      <h4>After that, our adventure quickly turned into a very scary scenario</h4>
+    </section>
+
+    <section data-auto-animate data-transition="slide-in none-out" data-auto-animate-id="wrong-sender">
+      <h4>After that, our adventure quickly turned into a very scary scenario</h4>
+      <img class="center" src="images/wrong_senders.png">
+    </section>
+
+    <section data-transition="none">
+      <h4>After that, our adventure quickly turned into a very scary scenario</h4>
+      <img class="center" src="images/wrong_senders_highlight.png">
+    </section>
+
+    <section data-auto-animate>
+      <h1 class="center">😱</h1>
+      <h3 class="center fragment fade-in-then-out">Well, at least it was only us using HEY internally 😌</h3>
+      <h2 class="center fragment">But still 😟😰🔍</h2>
+    </section>
+
+    <section data-auto-animate>
+      <h4>Where did the authenticated identity come from?</h4>
+
+      <small class="fragment">app/models/current.rb</small>
+      <pre class="fragment"><code data-noescape data-trim class="ruby" data-line-numbers="|1|2,4">
+        class Current < ActiveSupport::CurrentAttributes
+          attribute :session
+
+          delegate :identity, to: :session, allow_nil: true
+        end
+      </code></pre>
+    </section>
+
+    <section data-auto-animate data-auto-animate-id="current-attributes">
+      <h4>💡 Current Attributes</h4>
+
+      <blockquote data-id="current-attributes-quote">
+        Abstract super class that provides a thread-isolated attributes singleton, which <span>resets automatically before and after each request</span>.
+        <cite>Ruby on Rails API docs</cite>
+      </blockquote>
+    </section>
+
+    <section data-auto-animate data-auto-animate-id="current-attributes">
+      <h4>💡 Current Attributes</h4>
+
+      <blockquote data-id="current-attributes-quote">
+        Abstract super class that provides a thread-isolated attributes singleton, which <span class="marker">resets automatically before and after each request</span>.
+        <cite>Ruby on Rails API docs</cite>
+      </blockquote>
+    </section>
+
+    <section data-auto-animate data-auto-animate-id="authenticate-concern">
+      <h4>Where did the authenticated identity come from?</h4>
+
+      <small>app/controllers/concerns/authenticate.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|11">
+        module Authenticate
+          included do
+            before_action :require_session
+          end
+
+          def require_session
+            resume_session || request_session
+          end
+
+          def resume_session
+            Current.session ||= resume_session_by_cookie || resume_session_by_token
+          end
+      </code></pre>
+    </section>
+
+    <section data-transition="none">
+      <h4>We pushed a quick hotfix</h4>
+
+      <small>app/controllers/concerns/authenticate.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="2" data-ln-start-from="10">
+          def resume_session
+            Current.session ||= resume_session_by_cookie || resume_session_by_token
+          end
+      </code></pre>
+    </section>
+
+    <section data-transition="none">
+      <h4>We pushed a quick hotfix</h4>
+
+      <small>app/controllers/concerns/authenticate.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="2" data-ln-start-from="10">
+          def resume_session
+            Current.session = resume_session_by_cookie || resume_session_by_token
+          end
+      </code></pre>
+    </section>
+
+    <section>
+      <h3>Current Attributes were leaking! But how?</h3>
+    </section>
+
+    <section>
+      <h3><em>Something</em> was not resetting things properly after each request...</h3>
+    </section>
+
+    <section>
+      <h4>Jeremy 🔮:  <em>"This points to the Rails executor!"</em></h4>
+      <br />
+      <h5 class="framework">Hm... The Rails Executor... 🤔</h5>
+    </section>
+
+    <section>
+      <h5>ActiveSupport::Railtie - executor callbacks</h5>
+      <small>rails/activesupport/lib/active_support/railtie.rb</small>
+
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|7,8" data-ln-start-from="41">
+        initializer "active_support.reset_execution_context" do |app|
+          app.executor.to_run              { ActiveSupport::ExecutionContext.clear }
+          app.executor.to_complete         { ActiveSupport::ExecutionContext.clear }
+        end
+
+        initializer "active_support.reset_all_current_attributes_instances" do |app|
+          app.executor.to_run              { ActiveSupport::CurrentAttributes.reset_all }
+          app.executor.to_complete         { ActiveSupport::CurrentAttributes.reset_all }
+
+        # ...
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+      <h4>The Rails Executor 🦸🏽</h4>
+
+      <ul>
+        <li class="fragment">Separates application code and framework code</li>
+        <li class="fragment">Wraps application code inside an <em>executor</em> context, effectively bracketing every execution of application code with setup and teardown logic</li>
+        <li class="fragment">Defines <code class="inline">to_run</code> and <code class="inline">to_complete</code> callbacks</li>
+        <li class="fragment">Provides <code class="inline">run!</code>/<code class="inline">complete!</code> or <code class="inline">#wrap(&block)</code> to do the actual wrapping</li>
+      </ul>
+    </section>
+
+    <section data-auto-animate>
+      <h4>The Rails Executor 🦸🏽</h4>
+
+      <ul>
+        <li class="fragment">Tracks which threads are in a safe state for autoloading and reloading</li>
+        <li class="fragment">Enables and disables Active Record's query cache and makes sure it's cleared after each request</li>
+        <li class="fragment">Ensures database connections checked out from Active Record's pool during a request/job are returned to the pool when the work is done</li>
+        <li class="fragment marker"><strong>Prevents any per-request cached data from leaking from one request to the next</strong></li>
+        <li class="fragment">It's very relevant when writing gems that invoke application code (background jobs, instrumentation, non-HTTP handlers...)</li>
+        <li class="fragment">And a great example of Rails magic that makes our lives easier, and that's so much fun to know in detail 🪄</li>
+      </ul>
+    </section>
+
+    <section data-auto-animate>
+      <h5>Wrapping actions: Executor middleware</h5>
+
+      <pre class="fragment"><code data-noescape data-trim class="text" data-line-numbers="|5">
+        $ bin/rails middleware
+        use ActionDispatch::HostAuthorization
+        use Rack::Sendfile
+        use ActionDispatch::Static
+        use ActionDispatch::Executor
+        use ActionDispatch::ServerTiming
+        use Rack::Runtime
+        use Rack::MethodOverride
+        use ActionDispatch::RequestId
+        use ActionDispatch::RemoteIp
+        ...
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+      <h5>Executor middleware</h5>
+      <small>rails/actionpack/lib/action_dispatch/middleware/executor.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|3-5|8|11,16">
+        module ActionDispatch
+          class Executor
+            def initialize(app, executor)
+              @app, @executor = app, executor
+            end
+
+            def call(env)
+              state = @executor.run!
+              begin
+                response = @app.call(env)
+                returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+              rescue => error
+               @executor.error_reporter.report(error, handled: false)
+               raise
+              ensure
+                state.complete! unless returned
+              end
+            end
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>      <h4>We need to understand what these do:</h4>
+      <ul>
+        <li class="fragment"><code class="inline">@app, @executor = app, executor</code></li>
+        <li class="fragment"><code class="inline">state = @executor.run!</code></li>
+        <li class="fragment"><code class="inline">state.complete!</code></li>
+      </ul>
+    </section>
+
+    <section data-auto-animate>
+      <h4><code class="inline">@app, @executor = app, executor</code></h4>
+      <br />
+      <h5>Rails's default middleware stack</h5>
+      <small>rails/railties/lib/rails/application/default_middleware_stack.rb</small>
+      <pre><code data-noescape data-trim class="ruby">
+        middleware.use ::ActionDispatch::Executor, app.executor # ::ActionDispatch::Executor.new(_app, app.executor)
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+      <h5>Rails::Application</h5>
+      <small>rails/railties/lib/rails/application.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|7">
+        attr_reader :reloaders, :reloader, :executor, :autoloaders
+
+        # ...
+
+        def initialize(initial_variable_values = {}, &block)
+          # ...
+          @executor          = Class.new(ActiveSupport::Executor)
+          @reloader          = Class.new(ActiveSupport::Reloader)
+          @reloader.executor = @executor
+          # ...
+        end
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+      <h5>ActiveSupport::Executor</h5>
+      <small>rails/activesupport/lib/active_support/executor.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|2">
+        module ActiveSupport
+          class Executor < ExecutionWrapper
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+      <h5>Main executor code</h5>
+      <small>rails/activesupport/lib/active_support/execution_wrapper.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|5-7|9,10|12-18|20-23|24-26|44-46|40-42|24-26|28-34|31|48-51|49|50|53-55|31|32|33-35|57-59|59-63|60|65-67|59-63|62">
+        module ActiveSupport
+          class ExecutionWrapper
+            include ActiveSupport::Callbacks
+
+            Null = Object.new
+            def Null.complete!
+            end
+
+            define_callbacks :run
+            define_callbacks :complete
+
+            def self.to_run(*args, &block) # app.executor.to_run { ActiveSupport::CurrentAttributes.reset_all }
+              set_callback(:run, *args, &block)
+            end
+
+            def self.to_complete(*args, &block) # app.executor.to_complete { ActiveSupport::CurrentAttributes.reset_all }
+              set_callback(:complete, *args, &block)
+            end
+
+            # Run this execution.
+            #
+            # Returns an instance, whose +complete!+ method *must* be invoked
+            # after the work has been performed.
+            def self.run!
+              if active?
+                Null
+              else
+                new.tap do |instance|
+                  success = nil
+                  begin
+                    instance.run!
+                    success = true
+                  ensure
+                    instance.complete! unless success
+                  end
+                end
+              end
+            end
+
+            def self.active_key # app.executor.object_id, app.executor is Class.new(ActiveSupport::Executor)
+              @active_key ||= :"active_execution_wrapper_#{object_id}"
+            end
+
+            def self.active?
+              IsolatedExecutionState.key?(active_key)
+            end
+
+            def run!
+              IsolatedExecutionState[self.class.active_key] = self
+              run
+            end
+
+            def run # :nodoc:
+              run_callbacks(:run)
+            end
+
+            # Complete this in-flight execution. This method *must* be called
+            # exactly once on the result of any call to +run!+.
+            def complete!
+              complete
+            ensure
+              IsolatedExecutionState.delete(self.class.active_key)
+            end
+
+            def complete # :nodoc:
+              run_callbacks(:complete)
+            end
+      </code></pre>
+    </section>
+
+    <section data-auto-animate data-auto-animate-id="main-executor-summary">
+      <h5>Main executor code - summary</h5>
+      <small>rails/activesupport/lib/active_support/execution_wrapper.rb</small>
+
+      <h5><code class="inline fragment">state = @executor.run!</code></h5>
+      <ul>
+        <li class="fragment">If active, returns an object that does nothing on <code class="inline">complete!</code></li>
+        <li class="fragment">Else, it creates and returns an instance that:
+          <ul>
+            <li>stores executor as active for the current thread's (or fiber's) execution context</li>
+            <li>and runs <code class="inline">to_run</code> callbacks</li>
+          </ul>
+        </li>
+        <li class="fragment">If an error happens on <code class="inline">run</code>, it calls <code class="inline">complete!</code> in the instance</li>
+      </ul>
+    </section>
+
+    <section data-auto-animate-id="main-executor-summary">
+      <h5>Main executor code - summary</h5>
+      <small>rails/activesupport/lib/active_support/execution_wrapper.rb</small>
+
+      <h5><code class="inline fragment">state.complete!</code></h5>
+      <ul>
+        <li class="fragment">Runs <code class="inline">to_complete</code> callbacks</li>
+        <li class="fragment">No matter what, removes its class (the executor) from the current thread's (or fiber's) execution context</li>
+      </ul>
+    </section>
+
+    <section data-transition="slide-in none-out">
+      <h5>Executor middleware</h5>
+      <small>rails/actionpack/lib/action_dispatch/middleware/executor.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|7,8|10">
+        module ActionDispatch
+          class Executor
+            def initialize(app, executor)
+              @app, @executor = app, executor
+            end
+
+            def call(env)
+              state = @executor.run!
+              begin
+                response = @app.call(env)
+                returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+              rescue => error
+               @executor.error_reporter.report(error, handled: false)
+               raise
+              ensure
+                state.complete! unless returned
+              end
+            end
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-transition="none">
+      <h5>Executor middleware</h5>
+      <small>rails/actionpack/lib/action_dispatch/middleware/executor.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="10|11">
+        module ActionDispatch
+          class Executor
+            def initialize(app, executor)
+              @app, @executor = app, executor
+            end
+
+            def call(env)
+              state = @executor.run!
+              begin
+                response = @app.call(env) # response = [ status, header, body ]
+                returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+              rescue => error
+               @executor.error_reporter.report(error, handled: false)
+               raise
+              ensure
+                state.complete! unless returned
+              end
+            end
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-transition="none">
+      <sub><code>returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }</code></sub>
+    </section>
+
+    <section data-transition="none">
+      <sub><code>returned = response << ::Rack::BodyProxy.new(<span class="marker">response.pop</span>) { state.complete! }</code></sub>
+    </section>
+
+    <section data-transition="none">
+      <sub><code>returned = response << ::Rack::BodyProxy.new(<span class="marker">response.pop</span>) { state.complete! }</code></sub>
+      <br />
+      <sub><code>response = [ status, header, body ]</code></sub>
+      <br />
+      <sub class="fragment">→ <code>body = response.pop</code></sub>
+      <br />
+      <sub class="fragment">→ <code>response = [ status, header ]</code></sub>
+    </section>
+
+    <section data-transition="none">
+      <sub><code>returned = response << <span class="marker">::Rack::BodyProxy.new(response.pop) { state.complete! }</span></code></sub>
+      <br />
+      <sub><code>response = [ status, header, body ]</code></sub>
+      <br />
+      <sub><code>body = response.pop</code></sub>
+      <br />
+      <sub><code>response = [ status, header ]</code></sub>
+    </section>
+
+    <section data-transition="none">
+      <sub><code>returned = response << ::Rack::BodyProxy.new(response.pop) <span class="marker">{ state.complete! }</span></code></sub>
+      <br />
+      <sub><code>response = [ status, header, body ]</code></sub>
+      <br />
+      <sub><code>body = response.pop</code></sub>
+      <br />
+      <sub><code>response = [ status, header ]</code></sub>
+      <br />
+      <sub class="fragment">→ <code>proxied_body = ::Rack::BodyProxy.new(body, &block)</code></sub>
+    </section>
+
+    <section data-transition="none">
+      <sub><code>returned = response << ::Rack::BodyProxy.new(response.pop) <span class="marker">{ state.complete! }</span></code></sub>
+      <br />
+      <sub><code>response = [ status, header, body ]</code></sub>
+      <br />
+      <sub><code>body = response.pop</code></sub>
+      <br />
+      <sub><code>response = [ status, header ]</code></sub>
+      <br />
+      <sub>→ <code>proxied_body = ::Rack::BodyProxy.new(body, <span class="marker">&block</span>)</code></sub>
+    </section>
+
+    <section data-transition="none">
+      <sub><code>returned = <span class="marker">response << ::Rack::BodyProxy.new(response.pop) { state.complete! }</span></code></sub>
+      <br />
+      <sub><code>response = [ status, header, body ]</code></sub>
+      <br />
+      <sub><code>body = response.pop</code></sub>
+      <br />
+      <sub><code>response = [ status, header ]</code></sub>
+      <br />
+      <sub><code>proxied_body = ::Rack::BodyProxy.new(body, &block)</code></sub>
+    </section>
+
+    <section data-transition="none">
+      <sub><code>returned = <span class="marker">response << ::Rack::BodyProxy.new(response.pop) { state.complete! }</span></code></sub>
+      <br />
+      <sub><code>response = [ status, header, body ]</code></sub>
+      <br />
+      <sub><code>body = response.pop</code></sub>
+      <br />
+      <sub><code>response = [ status, header ]</code></sub>
+      <br />
+      <sub><code>proxied_body = ::Rack::BodyProxy.new(body, &block)</code></sub>
+      <br />
+      <sub>→ <code>response << proxied_body</code></sub>
+      <br />
+      <sub class="fragment">→ <code>response = [ status, header, <span class="marker">proxied_body</code></span> ]</sub>
+    </section>
+
+    <section data-transition="none">
+      <sub><code><span class="marker">returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }</span></code></sub>
+      <br />
+      <sub><code>response = [ status, header, body ]</code></sub>
+      <br />
+      <sub><code>body = response.pop</code></sub>
+      <br />
+      <sub><code>response = [ status, header ]</code></sub>
+      <br />
+      <sub><code>proxied_body = ::Rack::BodyProxy.new(body, &block)</code></sub>
+      <br />
+      <sub><code>response << proxied_body</code></sub>
+      <br />
+      <sub><code>response = [ status, header, proxied_body ]</code></sub>
+      <br />
+      <sub>→ <code>returned = response</code></sub>
+    </section>
+
+    <section data-auto-animate>
+      <h4><code>::Rack::BodyProxy.new(body) { state.complete! }</code></h4>
+      <br />
+
+      <div class="fragment">
+      <small>rack/lib/rack/body_proxy.rb</small>
+        <pre><code data-noescape data-trim class="ruby" data-line-numbers="|1-3|6-10|12-20|16|18">
+          # Proxy for response bodies allowing calling a block when
+          # the response body is closed (after the response has been fully
+          # sent to the client).
+
+          class Rack::BodyProxy
+            def initialize(body, &block)
+              @body = body
+              @block = block
+              @closed = false
+            end
+
+            def close
+              return if @closed
+              @closed = true
+              begin
+                @body.close if @body.respond_to?(:close)
+              ensure
+                @block.call
+              end
+            end
+          end
+        </code></pre>
+      </div>
+    </section>
+
+    <section data-transition="none">
+      <h5>Executor middleware</h5>
+      <small>rails/actionpack/lib/action_dispatch/middleware/executor.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="5|10" data-ln-start-from="7">
+        def call(env)
+          state = @executor.run!
+          begin
+            response = @app.call(env) # response = [ status, header, body ]
+            returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+          rescue => error
+           @executor.error_reporter.report(error, handled: false)
+           raise
+          ensure
+            state.complete! unless returned
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+      <h5>Executor middleware - summary</h5>
+      <small>rails/actionpack/lib/action_dispatch/middleware/executor.rb</small>
+
+      <ul>
+        <li class="fragment">Receives the app's executor for the current thread when initialized (<code class="inline">@executor</code>)</li>
+        <li class="fragment">Calls <code class="inline">state = @executor.run!</code> before invoking the next middleware</li>
+        <li class="fragment">Calls the next middleware, takes the response body, and wraps it with <code class="inline">::Rack::BodyProxy</code></li>
+        <li class="fragment">Passes <code class="inline">state.complete!</code> as a block that will run when the server calls <code class="inline">#close</code> in the response body</li>
+        <li class="fragment">Handles any errors on the above, reporting and calling <code class="inline">state.complete!</code> if something went wrong</li>
+      </ul>
+    </section>
+
+    <section data-auto-animate>
+      <h5>Remeber the callbacks defined by Rails</h5>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="7,8" data-ln-start-from="41">
+        initializer "active_support.reset_execution_context" do |app|
+          app.executor.to_run              { ActiveSupport::ExecutionContext.clear }
+          app.executor.to_complete         { ActiveSupport::ExecutionContext.clear }
+        end
+
+        initializer "active_support.reset_all_current_attributes_instances" do |app|
+          app.executor.to_run              { ActiveSupport::CurrentAttributes.reset_all }
+          app.executor.to_complete         { ActiveSupport::CurrentAttributes.reset_all }
+
+        # ...
+      </code></pre>
+    </section>
+
+    <section>
+      <h4>❗ If <code class="inline">run!</code> returns an active (not <em>complete</em>) executor, <code class="inline">to_run</code> callback wouldn't run</h4>
+      <br />
+
+      <h5 class="fragment">And calling <code class="inline">complete!</code> over the return value would do nothing</h5>
+    </section>
+
+    <section>
+      <h4>❗ And if <code class="inline">complete!</code> is not called over the current executor, the <code class="inline">to_complete</code> callback wouldn't run</h4>
+    </section>
+
+    <section data-transition="none">
+      <h4>First request</h4>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers data-ln-start-from="7">
+        def call(env)
+          state = @executor.run!
+          begin
+            response = @app.call(env)
+            returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+          rescue => error
+           @executor.error_reporter.report(error, handled: false)
+           raise
+          ensure
+            state.complete! unless returned
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-transition="none">
+      <h4>First request</h4>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="2" data-ln-start-from="7">
+        def call(env)
+          → state = @executor.run! # Class object_id: 16536, current attributes reset
+          begin
+            response = @app.call(env)
+            returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+          rescue => error
+           @executor.error_reporter.report(error, handled: false)
+           raise
+          ensure
+            state.complete! unless returned
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-transition="none">
+      <h4>First request</h4>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="5" data-ln-start-from="7">
+        def call(env)
+          state = @executor.run!
+          begin
+            response = @app.call(env)
+            → returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+          rescue => error
+           @executor.error_reporter.report(error, handled: false)
+           raise
+          ensure
+            state.complete! unless returned
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-transition="none">
+      <h4>First request</h4>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="10" data-ln-start-from="7">
+        def call(env)
+          state = @executor.run!
+          begin
+            response = @app.call(env)
+            returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+          rescue => error
+           @executor.error_reporter.report(error, handled: false)
+           raise
+          ensure
+            → state.complete! unless returned
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-transition="none">
+      <h4>First request</h4>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="10-11" data-ln-start-from="7">
+        def call(env)
+          state = @executor.run!
+          begin
+            response = @app.call(env) # response = [ status, header, body ]
+            returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+          rescue => error
+           @executor.error_reporter.report(error, handled: false)
+           raise
+          ensure
+            → state.complete! unless returned
+            # returned = [ status, headers, proxied_body ]
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-transition="none">
+      <h4>Subsequent requests</h4>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="2" data-ln-start-from="7">
+        def call(env)
+          → state = @executor.run! # ActiveSupport::ExecutionWrapper::Null, no reset
+          begin
+            response = @app.call(env) # response = [ status, header, body ]
+            returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+          rescue => error
+           @executor.error_reporter.report(error, handled: false)
+           raise
+          ensure
+            state.complete! unless returned
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-transition="none">
+      <h4>Subsequent requests</h4>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="5" data-ln-start-from="7">
+        def call(env)
+          state = @executor.run! # ActiveSupport::ExecutionWrapper::Null, no reset
+          begin
+            response = @app.call(env) # response = [ status, header, body ]
+            → returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+          rescue => error
+           @executor.error_reporter.report(error, handled: false)
+           raise
+          ensure
+            state.complete! unless returned
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section>
+      <h1 class="center">But how/why could this happen? 🔍</h1>
+    </section>
+
+
+    <section data-auto-animate data-auto-animate-id="current-request-pinning">
+
+
+      <h4>Chasing the bug with good old exceptions</h4>
+      <small>app/models/concerns/current_request_pinning.rb</small>
+      <pre><code data-noescape data-trim class="ruby"  data-line-numbers="|4-6|8-10|11-13">
+        module CurrentRequestPinning
+          extend ActiveSupport::Concern
+
+          prepended do
+            attribute :request_id
+          end
+
+          def request_id=(current_request_id)
+            if request_id
+              raise "Current.request_id is already pinned. Pinned: #{request_id} New: #{current_request_id}"
+            else
+              super
+            end
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-auto-animate data-auto-animate-id="current-request-pinning">
+      <h4>Chasing the bug with good old exceptions</h4>
+
+      <small>app/models/current.rb</small>
+      <pre><code data-noescape data-trim class="ruby"  data-line-numbers="|2">
+        class Current < ActiveSupport::CurrentAttributes
+          prepend CurrentRequestPinning
+
+          attribute :session
+      </code></pre>
+    </section>
+
+    <section data-auto-animate data-auto-animate-id="current-request-pinning">
+      <h4>Chasing the bug with good old exceptions</h4>
+      <small>config/initializers/guard_against_current_leakage.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|3">
+        ActiveSupport.on_load :action_controller do
+          before_action do
+            Current.request_id = request.request_id # ActionDispatch::RequestId, X-Request-Id header
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+
+
+      <h4>⏳ And then, we waited...</h4>
+      <h4 class="fragment fade-right">... until an exception happened! 💥</h4>
+
+      <pre class="fragment"><code data-noescape data-trim class="text" data-line-numbers="1-2">
+        RuntimeError (Current.request_id is already pinned.
+          Pinned: 6be33aff-d56d-429c-a934-2cb076c29979 New: f558cd87-9d8b-4d91-9313-892aef106ce7)
+
+        app/models/concerns/current_request_pinning.rb:22:in 'CurrentRequestPinning#guard_request_id_reassignment'
+        app/models/concerns/current_request_pinning.rb:10:in 'CurrentRequestPinning#request_id='
+        config/initializers/set_current_request_details.rb:5:in 'block (2 levels)'
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+
+
+      <h4>In our logs, we saw:</h4>
+
+      <div class="fragment">
+        <p>A 200 response from the Rails app</p>
+        <pre><code data-noescape data-trim class="text">
+          Started GET "/topics/1020541119"
+          Processing by TopicsController#show as HTML
+            Parameters: {"id" => "1020541119"}
+            ...
+          Completed 200 OK in 197ms
+        </code></pre>
+      </div>
+
+      <div class="fragment">
+        <p>But a 500 error logged by Nginx!</p>
+        <pre><code data-noescape data-trim class="text">
+          "GET /topics/1020541119 HTTP/1.1" 500
+        </code></pre>
+      </div>
+    </section>
+
+    <section data-auto-animate>
+      <h5>Puma's low level error handler</h5>
+
+      <small>config/puma.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|2-5|8">
+        lowlevel_error_handler do |exception, env|
+          Sentry.with_scope do |scope|
+            scope.set_transaction_name "puma"
+            scope.set_contexts puma: { env: env }
+            Sentry.capture_exception exception, level: :warning
+          end
+
+          [ 500, { "Content-Type" => "text/html" }, Rails.root.join("public/500.html").open ]
+        end
+      </code></pre>
+    </section>
+
+    <section data-transition="slide-in none-out">
+      <img class="center" src="images/middleware.png">
+    </section>
+
+    <section data-transition="none-in slide-out">
+      <img class="center" src="images/middleware_explosion.png">
+    </section>
+
+    <section data-auto-animate>
+
+
+      <p>The error pointed to a mysterious <code class="inline">Critter::UnicornQueueTiming</code> middleware that wasn't being listed in our middleware stack 😕</p>
+    </section>
+
+    <section data-auto-animate>      <small>config.ru</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|4-6">
+        # This file is used by Rack-based servers to start the application.
+        require_relative 'config/environment'
+
+        # Not Unicorn-specific. Tracks delay since the X-Queue-Start header set by
+        # the earliest load balancer that accepts HTTP requests.
+        use Critter::UnicornQueueTiming if defined? Critter
+
+        run Rails.application
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+      <pre><code data-noescape data-trim class="text" data-line-numbers="|2,5">
+        --- Puma ---
+        use Critter::UnicornQueueTiming 💥
+        use Rack::Sendfile
+        use ActionDispatch::Static
+        use ActionDispatch::Executor ⬅️
+        ...
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+      <p>The mysterious <code class="inline">Critter::UnicornQueueTiming</code> middleware wasn't thread-safe and was crashing from time to time 🤦🏻‍♀️</p>
+    </section>
+
+    <section data-transition="slide-in none-out">
+      <p>The immediate fix was easy</p>
+      <small>config.ru</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers data-ln-start-from="4">
+        # Not Unicorn-specific. Tracks delay since the X-Queue-Start header set by
+        # the earliest load balancer that accepts HTTP requests.
+        use Critter::UnicornQueueTiming if defined? Critter
+
+        run Rails.application
+      </code></pre>
+    </section>
+
+    <section data-transition="none-in slide-out">
+      <p>The immediate fix was easy</p>
+      <small>config.ru</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="4-6" data-ln-start-from="4">
+        # Not Unicorn-specific. Tracks delay since the X-Queue-Start header set by
+        # the earliest load balancer that accepts HTTP requests.
+        #
+        # *cough* Well, it does assume a single-threaded Rack adapter. Disabled
+        # pending thread-safe implementation.
+        # use Critter::UnicornQueueTiming if defined? Critter
+
+        run Rails.application
+      </code></pre>
+
+      <small class="fragment">Narrator: they never did the thread-safe implementation 😆</small>
+    </section>
+
+    <section data-auto-animate>
+
+
+      <h5>A resilient executor</h5>
+      <small>config/initializers/guard_against_current_leakage.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="1|2|4-6|9-19|15|21-25|28-30">
+        class GuardedExecutor < ActionDispatch::Executor
+          class ExecutorStateViolation < RuntimeError; end
+
+          def call(env)
+            guard(env) { super }
+          end
+
+          private
+            def guard(env)
+              check! :before
+
+              response = yield
+
+              # Knotty syntax. Match superclass implementation.
+              returned = response << ::Rack::BodyProxy.new(response.pop) { check! :body_close }
+            rescue Exception
+              check! :rescued
+              raise
+            end
+
+            def check!(whence)
+              if @executor.active?
+                raise ExecutorStateViolation, whence
+              end
+            end
+        end
+
+        Rails.application.configure do
+          config.middleware.swap ActionDispatch::Executor, GuardedExecutor, executor
+        end
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+      <h2 class="center">🥳</h2>
+      <h2 class="center fragment">The End?</h2>
+
+      <br/><br/>
+      <h4 class="fragment fade-up">Well, not quite...</h4>
+      <p class="fragment">We still had to upstream all this to Rails</p>
+      <p class="fragment">... but life had other plans</p>
+    </section>
+
+    <section data-transition="slide-in none-out">
+      <h4>Some time later, in Puma...</h4>
+
+      <img class="center fragment" src="images/puma_issue.png">
+    </section>
+
+    <section data-transition="none">
+      <h4>Some time later, in Puma...</h4>
+
+      <img class="center" src="images/puma_issue_highlight1.png">
+    </section>
+
+    <section data-transition="none">
+      <h4>Some time later, in Puma...</h4>
+
+      <img class="center" src="images/puma_issue_highlight2.png">
+    </section>
+
+    <section data-transition="none">
+      <h4>Some time later, in Puma...</h4>
+
+      <img class="center" src="images/puma_issue_comment.png">
+    </section>
+
+    <section>
+      <h1 class="center">🫣</h1>
+    </section>
+
+    <section data-auto-animate>
+      <p>A change in <code class="inline">Puma::Request#handle_request</code> inadvertently made a call to <code class="inline">res_body.close</code> to not always happen.</p>
+      <p class="fragment">Yes, that <code class="inline">res_body</code>:</p>
+
+      <pre class="fragment"><code data-noescape data-trim class="ruby">
+        returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+      </code></pre>
+    </section>
+
+    <section data-transition="none">
+      <h3>[CVE-2022-23633]</h3>
+
+      <img class="center" src="images/cve_rails.png">
+    </section>
+
+    <section data-transition="none">
+
+
+      <h3>[CVE-2022-23633]</h3>
+
+      <img class="center" src="images/cve_rails_highlight.png">
+    </section>
+
+    <section data-transition="none">
+      <img class="center" src="images/cve_puma.png">
+    </section>
+
+    <section data-transition="none">
+      <img class="center" src="images/cve_puma_highlight.png">
+    </section>
+
+    <section data-auto-animate>
+
+
+      <h4>And finally, the fix in Rails</h4>
+      <br />
+
+      <h5>ActiveSupport::Executor#run!</h5>
+      <small>rails/activesupport/lib/active_support/execution_wrapper.rb</small>
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|1-4" data-ln-start-from="66">
+        def self.run!(reset: false)
+          if reset
+            lost_instance = IsolatedExecutionState.delete(active_key)
+            lost_instance&.complete!
+          else
+            return Null if active?
+          end
+
+          new.tap do |instance|
+            success = nil
+            begin
+              instance.run!
+              success = true
+            ensure
+              instance.complete! unless success
+            end
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+      <h4>And finally, the fix in Rails</h4>
+      <br />
+
+      <h5>Executor middleware</h5>
+      <small>rails/actionpack/lib/action_dispatch/middleware/executor.rb</small>
+
+      <pre><code data-noescape data-trim class="ruby" data-line-numbers="|8">
+        module ActionDispatch
+          class Executor
+            def initialize(app, executor)
+              @app, @executor = app, executor
+            end
+
+            def call(env)
+              state = @executor.run!(reset: true)
+              begin
+                response = @app.call(env)
+                returned = response << ::Rack::BodyProxy.new(response.pop) { state.complete! }
+              rescue => error
+               @executor.error_reporter.report(error, handled: false)
+               raise
+              ensure
+                state.complete! unless returned
+              end
+            end
+          end
+        end
+      </code></pre>
+    </section>
+
+    <section data-auto-animate>
+      <h2 class="center">🥳</h2>
+      <h2 class="center fragment fade-up">Now yes, The End?</h2>
+      <h3 class="center fragment fade-up">Almost!</h3>
+    </section>
+
+    <section data-auto-animate>
+
+      <h3 class="center">Rails Security Team</h2>
+      <br />
+      <h2 class="center fragment">❤️🙇🏻‍♀️ Huge thanks</h3>
+      <br />
+      <h4 class="center fragment fade-up">And Rails Core and Puma teams 🙏🏻</h4>
+    </section>
+
+    <section data-auto-animate>
+      <h2 class="center">Now yes: The End!</h2>
+      <img class="fragment" src="images/qr_code_resources.png">
+      <h3 class="center fragment fade-up">Muito obrigada! 🫶🏻</h3>
+    </section>
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/highlight/highlight.min.js"></script>
+<script>
+	// More info about initialization & config:
+	// - https://revealjs.com/initialization/
+	// - https://revealjs.com/config/
+  Reveal.initialize({
+    hash: true,
+	  // The "normal" size of the presentation, aspect ratio will
+	  // be preserved when the presentation is scaled to fit different
+	  // resolutions. Can be specified using percentage units.
+    width: 1920,
+    height: 1080,
+
+	  // Factor of the display size that should remain empty around
+	  // the content
+    margin: 0.04,
+
+	  // Bounds for smallest/largest possible scale to apply to content
+    minScale: 0.2,
+    maxScale: 2.0,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+    plugins: [ RevealHighlight ]
+  });
+</script>
+</body>
+</html>
