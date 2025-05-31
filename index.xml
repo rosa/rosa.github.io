@@ -4,7 +4,7 @@
     <title>rosa.codes</title>
     <link>https://rosa.codes/</link>
     <description>Recent content on rosa.codes</description>
-    <generator>Hugo -- 0.145.0</generator>
+    <generator>Hugo -- 0.147.6</generator>
     <language>en-us</language>
     <atom:link href="https://rosa.codes/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -78,6 +78,29 @@
 &lt;p&gt;&amp;#x1f4ac;&amp;#x1f5fa;&amp;#xfe0f; I&amp;rsquo;m a polyglot at heart, trying to be a polyglot on the outside. I love learning programming languages, &lt;a href=&#34;https://github.com/rosa/advent-of-code/tree/main/2021#advent-of-code-2021&#34;&gt;even in absurd ways&lt;/a&gt;, and human languages as well.&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Machines that talk about themselves</title>
+      <link>https://rosa.codes/machines2025/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://rosa.codes/machines2025/</guid>
+      <description>&lt;h4 id=&#34;sentences-and-expressions&#34;&gt;Sentences and expressions&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;An &lt;em&gt;expression&lt;/em&gt; is any combination of the symbols &lt;code&gt;P, N, A, -&lt;/code&gt;. For example, &lt;code&gt;NPA—P-A&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A &lt;em&gt;sentence&lt;/em&gt; is an expression with an assigned meaning.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;the-printing-machine-&#34;&gt;The printing machine 🖨️&lt;/h4&gt;
+&lt;p&gt;We&amp;rsquo;re giving a printing machine, and we call an expression &lt;em&gt;printable&lt;/em&gt; if the machine can print it.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;P-X&lt;/code&gt; means &amp;ldquo;&lt;code&gt;X&lt;/code&gt; is printable&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;NP-X&lt;/code&gt; means &amp;ldquo;&lt;code&gt;X&lt;/code&gt; is not printable&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The associate of an expression &lt;code&gt;X&lt;/code&gt; is &lt;code&gt;X-X&lt;/code&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;PA-X&lt;/code&gt; means &amp;ldquo;the associate of &lt;code&gt;X&lt;/code&gt;, &lt;code&gt;X-X&lt;/code&gt;, is printable&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;NPA-X&lt;/code&gt; means &amp;ldquo;the associate of &lt;code&gt;X&lt;/code&gt;, &lt;code&gt;X-X&lt;/code&gt;, is not printable&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A sentence is an expression of the following 4 forms:&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>scpna2022</title>
       <link>https://rosa.codes/scpna2022/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -122,11 +145,11 @@
 &lt;li&gt;&lt;a href=&#34;https://guides.rubyonrails.org/v7.1/threading_and_code_execution.html#executor&#34;&gt;Rails executor&lt;/a&gt; – Rails Guides&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://evilmartians.com/events/rails-executor-kaigionrails&#34;&gt;Rails Executor: the border between application and framework code&lt;/a&gt; - Talk by Andrey Novikov from Evil Martians at Kaigi on Rails 2023 (Japanese 🇯🇵)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://dansvetlov.me/puma-internals/&#34;&gt;Dissecting Puma: Anatomy of a Ruby Web Server&lt;/a&gt; – Amazing deep dive on Puma internals by Dan Svetlov&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/puma/puma/pull/2731&#34;&gt;Change that moved &lt;/a&gt;&lt;!-- raw HTML omitted --&gt;body.close&lt;!-- raw HTML omitted --&gt; in Puma&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/puma/puma/pull/2731&#34;&gt;Change that moved &lt;code&gt;body.close&lt;/code&gt;&lt;/a&gt; in Puma&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/puma/puma/issues/2808&#34;&gt;Authentication with cookies unreliable on 5.6.0 #2808&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://discuss.rubyonrails.org/t/cve-2022-23633-possible-exposure-of-information-vulnerability-in-action-pack/80016&#34;&gt;[CVE-2022-23633] Possible exposure of information vulnerability in Action Pack&lt;/a&gt; – CVE in Rails forums&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/puma/puma/security/advisories/GHSA-rmj8-8hhh-gv5h&#34;&gt;Information Exposure with Puma and Rails&lt;/a&gt; – Security advisory in Puma&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/rails/rails/commit/3c0420c431954d05fef2015a27281069e68cce0c&#34;&gt;ActionDispatch::Executor don&amp;rsquo;t fully trust &lt;/a&gt;&lt;!-- raw HTML omitted --&gt;body#close&lt;!-- raw HTML omitted --&gt; – Fix in Rails executor to make it more resilient&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rails/rails/commit/3c0420c431954d05fef2015a27281069e68cce0c&#34;&gt;ActionDispatch::Executor don&amp;rsquo;t fully trust &lt;code&gt;body#close&lt;/code&gt;&lt;/a&gt; – Fix in Rails executor to make it more resilient&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
   </channel>
