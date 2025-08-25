@@ -4,7 +4,7 @@
     <title>rosa.codes</title>
     <link>https://rosa.codes/</link>
     <description>Recent content on rosa.codes</description>
-    <generator>Hugo -- 0.147.6</generator>
+    <generator>Hugo -- 0.148.2</generator>
     <language>en-us</language>
     <atom:link href="https://rosa.codes/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -76,6 +76,20 @@
       <description>&lt;p&gt;👩🏻‍💻&amp;#x1f430;&amp;#x1f573;&amp;#xfe0f; I&amp;rsquo;m a software engineer who loves writing code, investigating tricky bugs down rabbit holes and helping others above all things. I value curiosity, generosity and humility very highly. I think the three are very closely related.&lt;/p&gt;
 &lt;p&gt;&amp;#x1f4da;&amp;#x1f9ee; I have a background in theoretical computer science and I wanted to study pure mathematics. I&amp;rsquo;ll do it one day.&lt;/p&gt;
 &lt;p&gt;&amp;#x1f4ac;&amp;#x1f5fa;&amp;#xfe0f; I&amp;rsquo;m a polyglot at heart, trying to be a polyglot on the outside. I love learning programming languages, &lt;a href=&#34;https://github.com/rosa/advent-of-code/tree/main/2021#advent-of-code-2021&#34;&gt;even in absurd ways&lt;/a&gt;, and human languages as well.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Bringing Offline Mode to Hotwire with Service Workers ⚡</title>
+      <link>https://rosa.codes/offline2025/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://rosa.codes/offline2025/</guid>
+      <description>&lt;p&gt;Some resources to accompany the Rails World 2025 talk of the same name, and learn more:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://web.dev/articles/service-worker-mindset&#34;&gt;Service worker mindset&lt;/a&gt; - web.dev, by Dave Geddes&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://web.dev/articles/service-worker-lifecycle&#34;&gt;The service worker lifecycle&lt;/a&gt; - web.dev, by Jake Archibald&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.chrome.com/docs/workbox&#34;&gt;Workbox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=87majUWRcmg&#34;&gt;The Future of: PWAs on Rails&lt;/a&gt; - Talk by Edy Silva at RailsConf 2025&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://masterhotwire.com/&#34;&gt;Master Hotwire&lt;/a&gt; - book by Radan Skorić&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Machines that talk about themselves</title>
