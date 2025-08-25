@@ -89,6 +89,7 @@
 &lt;li&gt;&lt;a href=&#34;https://developer.chrome.com/docs/workbox&#34;&gt;Workbox&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=87majUWRcmg&#34;&gt;The Future of: PWAs on Rails&lt;/a&gt; - Talk by Edy Silva at RailsConf 2025&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://masterhotwire.com/&#34;&gt;Master Hotwire&lt;/a&gt; - book by Radan Skorić&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://issues.chromium.org/issues/40450316&#34;&gt;Chromium bug - Unable to set User-Agent header&lt;/a&gt; - it hasn&amp;rsquo;t been fixed as of 2025-08-25, but it&amp;rsquo;s being worked on as I write this (last update on 2025-08-20)&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
     <item>
