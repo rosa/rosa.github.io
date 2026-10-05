@@ -149,6 +149,22 @@
 &lt;/ul&gt;</description>
     </item>
     <item>
+      <title>Solid Queue: two years on Rails</title>
+      <link>https://rosa.codes/sq2026/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://rosa.codes/sq2026/</guid>
+      <description>&lt;p&gt;Resources to accompany &lt;a href=&#34;https://www.rubyevents.org/talks/solid-queue-two-years-on-rails-kaigi-on-rails-2026&#34;&gt;the talk&lt;/a&gt; given at &lt;a href=&#34;https://www.rubyevents.org/events/kaigi-on-rails-2026&#34;&gt;Kaigi on Rails 2026&lt;/a&gt; and learn more:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rails/solid_queue&#34;&gt;Solid Queue&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rubyevents.org/talks/solid-queue-internals-externals-and-all-the-things-in-between&#34;&gt;Solid Queue Internals, Externals and all the things in between&lt;/a&gt; – talk at Rails World 2024 in Toronto where Solid Queue was introduced&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/socketry/async&#34;&gt;The Async gem&lt;/a&gt; – by Samuel Williams; the fiber scheduler that Solid Queue&amp;rsquo;s fiber mode runs on&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.ruby-lang.org/en/master/Fiber/Scheduler.html&#34;&gt;Fiber::Scheduler&lt;/a&gt; – Ruby docs for the scheduler interface Ruby ships without an implementation (&amp;ldquo;implementations are provided by gems, like Async&amp;rdquo;)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://jpcamara.com/2026/08/24/a-guide-to-using-batches.html&#34;&gt;A Guide to using Batches in SolidQueue&lt;/a&gt; – Article by JP Camara&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://jpcamara.com/2026/08/31/solidqueue-batches-evolution-and-architecture.html&#34;&gt;SolidQueue Batches: evolution and architecture&lt;/a&gt; – Article by JP Camara, the story behind the PR&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rails/mission_control-jobs&#34;&gt;Mission Control — Jobs&lt;/a&gt; – the dashboard for Solid Queue&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>The curious incident of the incomplete executor 🕵🏻‍♀️</title>
       <link>https://rosa.codes/executor2025/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
