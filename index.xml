@@ -153,7 +153,8 @@
       <link>https://rosa.codes/sq2026/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://rosa.codes/sq2026/</guid>
-      <description>&lt;p&gt;Resources to accompany &lt;a href=&#34;https://www.rubyevents.org/talks/solid-queue-two-years-on-rails-kaigi-on-rails-2026&#34;&gt;the talk&lt;/a&gt; given at &lt;a href=&#34;https://www.rubyevents.org/events/kaigi-on-rails-2026&#34;&gt;Kaigi on Rails 2026&lt;/a&gt; and learn more:&lt;/p&gt;
+      <description>&lt;p&gt;You can find the &lt;a href=&#34;https://rosa.codes/sq2026/presentation.pdf&#34;&gt;slides for the talk&lt;/a&gt; given at &lt;a href=&#34;https://www.rubyevents.org/events/kaigi-on-rails-2026&#34;&gt;Kaigi on Rails 2026&lt;/a&gt;, and &lt;a href=&#34;https://www.rubyevents.org/talks/solid-queue-two-years-on-rails-kaigi-on-rails-2026&#34;&gt;the talk&amp;rsquo;s page&lt;/a&gt; on Ruby Events.&lt;/p&gt;
+&lt;p&gt;Some resources to accompany the talk and learn more:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/rails/solid_queue&#34;&gt;Solid Queue&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.rubyevents.org/talks/solid-queue-internals-externals-and-all-the-things-in-between&#34;&gt;Solid Queue Internals, Externals and all the things in between&lt;/a&gt; – talk at Rails World 2024 in Toronto where Solid Queue was introduced&lt;/li&gt;
